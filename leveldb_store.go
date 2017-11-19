@@ -19,7 +19,7 @@ type LevelStore struct {
 
 func NewLevelStore(dir string) (*LevelStore, error) {
 	wbs := 1024 * 1024 * 64
-	db, err := leveldb.OpenFile(dir, &opt.Options{WriteBuffer: wbs})
+	db, err := leveldb.OpenFile(dir, &opt.Options{CompactionTableSize: wbs, WriteBuffer: wbs})
 	if err != nil {
 		return nil, err
 	}
