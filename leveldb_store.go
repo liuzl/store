@@ -3,6 +3,7 @@ package store
 import (
 	"errors"
 	"github.com/syndtr/goleveldb/leveldb"
+	"github.com/syndtr/goleveldb/leveldb/opt"
 	"github.com/syndtr/goleveldb/leveldb/util"
 	"os"
 )
@@ -17,7 +18,8 @@ type LevelStore struct {
 }
 
 func NewLevelStore(dir string) (*LevelStore, error) {
-	db, err := leveldb.OpenFile(dir, nil)
+	wbs := 1024 * 1024 * 64
+	db, err := leveldb.OpenFile(dir, &opt.Options{WriteBuffer: wbs})
 	if err != nil {
 		return nil, err
 	}
