@@ -17,6 +17,15 @@ type LevelStore struct {
 	dir string
 }
 
+func ReadOnlyStore(dir string) (*LevelStore, error) {
+	wbs := 1024 * 1024 * 64
+	db, err := leveldb.OpenFile(dir, &opt.Options{CompactionTableSize: wbs, WriteBuffer: wbs, ReadOnly: true})
+	if err != nil {
+		return nil, err
+	}
+	return &LevelStore{db: db, dir: dir}, nil
+}
+
 func NewLevelStore(dir string) (*LevelStore, error) {
 	wbs := 1024 * 1024 * 64
 	db, err := leveldb.OpenFile(dir, &opt.Options{CompactionTableSize: wbs, WriteBuffer: wbs})
