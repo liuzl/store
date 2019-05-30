@@ -2,10 +2,11 @@ package store
 
 import (
 	"errors"
+	"os"
+
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/opt"
 	"github.com/syndtr/goleveldb/leveldb/util"
-	"os"
 )
 
 var (
